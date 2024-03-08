@@ -1,8 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { Body, Controller } from '@nestjs/common';
-import { Get, Param, Query, Post, Delete, Put} from '@nestjs/common'
-import { Product } from 'src/entities/product.entity';
+import { Get, Param, Query, Post, Delete, Put, ParseIntPipe} from '@nestjs/common'
 import { ProductsService } from 'src/services/products/products.service';
+import { CreateProductDto, UpdateProductDto } from 'src/dtos/products.dtos';
+
 
 @Controller('products')
 // el controlador nos indica el endopoint base, al crear nuevos no debemos añadir
@@ -17,31 +18,29 @@ export class ProductsController {
   }
 
   @Get(':id')
-  getProductById(@Param('id') id: string){
-    const parsedId = parseInt(id)
-    return this.productsService.findProductById(parsedId)
+  getProductById(@Param('id', ParseIntPipe) id: number){
+    return this.productsService.findProductById(id)
   }
 
   @Post()
-  createProduct(@Body() bodyData: any){
-    const {productName, price} = bodyData
-    const product : Product = {
-        nombre: productName,
-        precio: price
+  createProduct(@Body() bodyData: CreateProductDto){
+    const {id, name, price} = bodyData
+    const product : CreateProductDto = {
+        id: id,
+        name: name,
+        price: price
     }
     return this.productsService.createProduct(product)
   }
 
   @Put(':id')
-  updateProduct(@Param('id') id: string, @Body() payload: any){
-    const parsedId = parseInt(id)
-    return this.productsService.updateProduct(parsedId, payload)
+  updateProduct(@Param('id', ParseIntPipe) id: number, @Body() payload: UpdateProductDto){
+    return this.productsService.updateProduct(id, payload)
   }
 
   @Delete(':id')
-  deleteProduct(@Param('id') id: string){
-    const parsedId = parseInt(id)
-    return this.productsService.deleteProduct(parsedId)
+  deleteProduct(@Param('id', ParseIntPipe) id: number){
+    return this.productsService.deleteProduct(id)
   }
 
   // Recibir doble parámetro en una misma consulta:

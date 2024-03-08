@@ -1,14 +1,14 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
-import { Product } from 'src/entities/product.entity';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { CreateProductDto, UpdateProductDto } from 'src/dtos/products.dtos';
 @Injectable()
 export class ProductsService {
-    private products :Product[]= [
-        { id: 1, nombre: 'Chaqueta de Cuero Clásica', precio: 149.99 },
-        { id: 2, nombre: 'Cafetera Premium', precio: 89.99 },
-        { id: 3, nombre: 'Smartphone X Pro', precio: 699.99 },
-        { id: 4, nombre: 'Tocadiscos Vintage', precio: 249.99 },
-        { id: 5, nombre: 'Gafas de Sol de Diseñador', precio: 129.99 },
+    private products = [
+        { id: 1, name: 'Chaqueta de Cuero Clásica', price: 149.99 },
+        { id: 2, name: 'Cafetera Premium', price: 89.99 },
+        { id: 3, name: 'Smartphone X Pro', price: 699.99 },
+        { id: 4, name: 'Tocadiscos Vintage', price: 249.99 },
+        { id: 5, name: 'Gafas de Sol de Diseñador', price: 129.99 },
     ];
 
     findAll(){
@@ -21,9 +21,12 @@ export class ProductsService {
         const product = this.products.find((product) => {
             return product.id === id
         })
+        if(!product){
+            throw new HttpException('No se ha encontrado el producto', HttpStatus.BAD_REQUEST)
+        }
         return product
     }
-    createProduct(product: Product){
+    createProduct(product: CreateProductDto){
         const newProduct = product
         this.products.push(newProduct)
         const response = {
@@ -33,7 +36,7 @@ export class ProductsService {
         return response
     }
 
-    updateProduct(id: number, payload: object){
+    updateProduct(id: number, payload: UpdateProductDto){
         const index = this.products.findIndex((product) => {
             return product.id === id
         })
