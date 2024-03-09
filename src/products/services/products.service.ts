@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { CreateProductDto, UpdateProductDto } from 'src/dtos/products.dtos';
+import { CreateProductDto, UpdateProductDto } from 'src/products/dtos/products.dtos';
 @Injectable()
 export class ProductsService {
     private products = [

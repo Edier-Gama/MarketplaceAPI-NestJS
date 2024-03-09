@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { Body, Controller } from '@nestjs/common';
 import { Get, Param, Query, Post, Delete, Put, ParseIntPipe} from '@nestjs/common'
-import { ProductsService } from 'src/services/products/products.service';
-import { CreateProductDto, UpdateProductDto } from 'src/dtos/products.dtos';
+import { ProductsService } from '../services/products.service';
+import { CreateProductDto, UpdateProductDto } from 'src/products/dtos/products.dtos';
 
 
 @Controller('products')
