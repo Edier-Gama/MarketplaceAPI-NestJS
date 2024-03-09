@@ -1,5 +1,10 @@
 /* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
+import { CategoriesService } from './services/categories.service';
+import { CategoriesController } from './controllers/categories.controller';
 
-@Module({})
+@Module({
+    controllers: [CategoriesController],
+    providers: [CategoriesService]
+})
 export class CategoriesModule {}
