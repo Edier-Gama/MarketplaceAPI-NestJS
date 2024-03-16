@@ -8,10 +8,7 @@ export class AppController {
 
   @Get()
   getHello(){
-    return {
-      message: 'API listen and active',
-      status: 200
-    }
+    return this.appService.getHello()
   }
 }
 
