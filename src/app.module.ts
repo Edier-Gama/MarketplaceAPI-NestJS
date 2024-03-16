@@ -7,7 +7,7 @@ import { UsersModule } from './users/users.module';
 import { BrandsModule } from './brands/brands.module';
 import { CategoriesModule } from './products/categories.module';
 import { CustomersModule } from './users/customers.module';
-import { OrdersModule } from './products/orders.module';
+import { OrdersModule } from './users/orders.module';
 
 @Module({
   imports: [ProductsModule, UsersModule, BrandsModule, CategoriesModule, CustomersModule, OrdersModule],
